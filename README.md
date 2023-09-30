@@ -14,7 +14,7 @@ Now, let's set up a sample project using Docker.
 **docker-compose.yml**
 
 
-```
+```yml
 version: '3.1'
 services:
   zookeeper:
@@ -113,14 +113,14 @@ Then run the compose file with the following command.
 
 After these operations, we can perform database side operations
 
-```
-// Creating database
+```sql
+/* Creating database */
 CREATE DATABASE DebeziumTestDB
 
-// Creating schema
+/* Creating schema */
 CREATE SCHEMA debezium
 
-// Creating table with schema
+/* Creating table with schema */
 CREATE TABLE debezium.products
 (
   id int primary key identity(1,1),
@@ -128,10 +128,10 @@ CREATE TABLE debezium.products
   category nvarchar(max)
 )
 
-// Activating database CDC
+/* Activating database CDC */
 EXEC sys.sp_cdc_enable_db
 
-// Activating table CDC
+/* Activating table CDC */
 USE DebeziumTestDB
 EXEC sys.sp_cdc_enable_table 
 @source_schema = N'debezium', 
@@ -148,7 +148,7 @@ After these operations, we need to establish a connection between debezium and t
 
 **Body** : 
 
-```
+```json
 {
   "name": "debezium-connector",
   "config": {
@@ -183,7 +183,7 @@ After all these operations, let's create a Console application and access CDC da
 
 ![CDC Akışı](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/ron99bgup5xaa1k4vvso.png)
 
-```
+```cs
 using Confluent.Kafka;
 
 try
@@ -211,12 +211,12 @@ catch (System.Exception ex)
 
 If we run the application and the following query is run on the database side, we will get an answer like this.
 
-```
+```sql
 INSERT INTO debezium.products
 VALUES('product 6','test category 6')
 ```
 
-```
+```json
 {
   "schema": {
     "type": "struct",

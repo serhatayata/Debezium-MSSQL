@@ -146,7 +146,7 @@ EXEC sys.sp_cdc_enable_table
 
 After these operations, we need to establish a connection between debezium and the database. For this, we create a connector by making a POST request to a Rest API endpoint on the debezium side.
 
-**Endpoint **: <u>http://localhost:8083/connectors</u>
+**Endpoint**: <u>http://localhost:8083/connectors</u>
 
 **Body** : 
 
